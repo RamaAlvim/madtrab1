@@ -1,5 +1,4 @@
 import os
-import pdb
 import sys
 
 import matplotlib
@@ -51,7 +50,6 @@ for clusterqt in clustersQtd:
     plt.scatter(cluster.cluster_centers_[:, 0], cluster.cluster_centers_[:, 1], c='red')
     plt.show()
     # inserir o valor de métrica do resultado no results junto com a quantidade de centroides clusterqt
-    # import pdb; pdb.set_trace();
     results.append(cluster.inertia_)
 #usando a técnica da "elbow method" foi possivel determinar o ponto onde a quantidade de clusters deixa de ser interessante
 #referencias https://vitalflux.com/k-means-elbow-point-method-sse-inertia-plot-python/
