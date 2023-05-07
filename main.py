@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.axes as ax
 import sklearn.cluster
+from kneed import KneeLocator
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import matplotlib
@@ -49,5 +50,17 @@ for clusterqt in clustersQtd:
     plt.scatter(lon, lat, s=5)  # esse!!
     plt.scatter(cluster.cluster_centers_[:, 0], cluster.cluster_centers_[:, 1], c='red')
     plt.show()
-    #inserir o valor de métrica do resultado no results junto com a quantidade de centroides clusterqt
-# import pdb; pdb.set_trace();
+    # inserir o valor de métrica do resultado no results junto com a quantidade de centroides clusterqt
+    # import pdb; pdb.set_trace();
+    results.append(cluster.inertia_)
+#usando a técnica da "elbow method" foi possivel determinar o ponto onde a quantidade de clusters deixa de ser interessante
+#referencias https://vitalflux.com/k-means-elbow-point-method-sse-inertia-plot-python/
+plt.plot(range(2, 11), results)
+plt.xticks(range(2, 11))
+plt.xlabel("# centroids")
+plt.ylabel("Soma do erro médio Quadrático")
+plt.show()
+# Encontrando o ponto de inflexão, a quantidade de clusters a partir do qual qual a curva grafico começa a decrementar linearmente
+kl = KneeLocator(range(2, 11), results, curve="convex", direction="decreasing")
+
+print("valor ideal de centroides: ", kl.elbow)
